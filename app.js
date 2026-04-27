@@ -8,18 +8,22 @@ const workspace = Blockly.inject('blocklyDiv', {
 
 // Fungsi untuk menjalankan koding visual
 window.runCode = function() {
-    // Generate kode JS dari workspace
-    const code = Blockly.JavaScript.workspaceToCode(workspace);
+    // Menggunakan javascriptGenerator untuk memproses blok menjadi teks kode
+    const code = javascript.javascriptGenerator.workspaceToCode(workspace);
+    
+    // Log ke console untuk memastikan kode berhasil dibuat
+    console.log("Instruksi dihasilkan:", code);
+    
     try {
-        // Eksekusi kode secara langsung
+        // Menjalankan instruksi (evaluasi)
         eval(code);
     } catch (e) {
         alert("Ups! Ada yang salah dengan susunan blokmu.");
-        console.error(e);
+        console.error("Kesalahan eksekusi:", e);
     }
 };
 
-// Pastikan Blockly melakukan resize otomatis saat jendela browser berubah
+// Menyesuaikan ukuran jika layar berubah
 window.addEventListener('resize', () => {
     Blockly.svgResize(workspace);
 });
