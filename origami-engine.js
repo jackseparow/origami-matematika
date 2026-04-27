@@ -7,39 +7,42 @@ renderer.setSize(window.innerWidth / 2, window.innerHeight);
 renderer.setClearColor(0xecf0f1);
 document.getElementById('visual-area').appendChild(renderer.domElement);
 
-// --- LOGIKA ENGSEL LIPATAN ---
-// Kita buat grup sebagai "garis lipatan" (engsel)
+// --- NAVIGASI PERSPEKTIF ---
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
+// --- PEMBANTU VISUAL (GRID) ---
+const gridHelper = new THREE.GridHelper(10, 10);
+scene.add(gridHelper);
+
+// --- SISTEM LIPATAN (ENGSEL) ---
 const hinge = new THREE.Group();
 scene.add(hinge);
 
-// Bagian kertas yang akan melipat (Atas)
 const geometry = new THREE.PlaneGeometry(3, 1.5);
 const material = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide });
-const upperPaper = new THREE.Mesh(geometry, material);
 
-// Geser posisi kertas agar pinggir bawahnya tepat di titik pusat grup (0,0)
-upperPaper.position.y = 0.75; 
+const upperPaper = new THREE.Mesh(geometry, material);
+upperPaper.position.y = 0.75; // Titik pusat rotasi ada di pinggir bawah kertas atas
 hinge.add(upperPaper);
 
-// Bagian kertas yang diam (Bawah) sebagai referensi
 const lowerPaper = new THREE.Mesh(geometry, material);
 lowerPaper.position.y = -0.75;
 scene.add(lowerPaper);
 
-// Lampu & Kamera
 scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-camera.position.z = 5;
+camera.position.set(3, 3, 5); // Sudut pandang awal 3D
 camera.lookAt(0, 0, 0);
 
 function animate() {
     requestAnimationFrame(animate);
+    controls.update(); 
     renderer.render(scene, camera);
 }
 
-// --- FUNGSI GLOBAL UNTUK BLOCKLY ---
+// Fungsi yang dipanggil dari Blockly
 window.updateFold = function(deg) {
     const rad = (deg * Math.PI) / 180;
-    // Putar engselnya, maka upperPaper yang ada di dalamnya ikut terlipat
     hinge.rotation.x = -rad; 
 };
 
