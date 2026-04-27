@@ -10,6 +10,7 @@ body { margin: 0; overflow: hidden; font-family: 'Segoe UI', sans-serif; display
 
 #blocklyDiv { flex: 1; position: relative; }
 
+/* Gaya Tombol Eksekusi */
 #run-btn {
     background: #27ae60;
     color: white;
@@ -19,11 +20,13 @@ body { margin: 0; overflow: hidden; font-family: 'Segoe UI', sans-serif; display
     cursor: pointer;
     font-size: 1.1em;
     z-index: 100;
+    transition: 0.3s;
 }
 #run-btn:hover { background: #2ecc71; }
 
 .label-info {
     position: absolute; top: 20px; left: 20px; background: rgba(255, 255, 255, 0.9);
     padding: 15px; border-radius: 8px; pointer-events: none; z-index: 10;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-size: 0.9em;
 }
