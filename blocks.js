@@ -1,4 +1,4 @@
-// Definisi blok kustom
+// 1. Definisi Tampilan Blok
 Blockly.defineBlocksWithJsonArray([
     {
         "type": "fold_paper",
@@ -13,9 +13,9 @@ Blockly.defineBlocksWithJsonArray([
     }
 ]);
 
-// Generator kode Javascript
+// 2. Definisi Logika Generator (Menerjemahkan Blok ke JavaScript)
 Blockly.JavaScript['fold_paper'] = function(block) {
     var value_angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_ATOMIC) || '0';
-    // Menghasilkan string kode yang memanggil fungsi di origami-engine.js
-    return 'updateFold(' + value_angle + ');\n';
+    // Menghasilkan perintah yang memanggil fungsi global di origami-engine.js
+    return 'window.updateFold(' + value_angle + ');\n';
 };
