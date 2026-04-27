@@ -1,4 +1,4 @@
-// Definisi blok kustom dalam Bahasa Indonesia
+// Definisi blok kustom
 Blockly.defineBlocksWithJsonArray([
     {
         "type": "fold_paper",
@@ -13,8 +13,9 @@ Blockly.defineBlocksWithJsonArray([
     }
 ]);
 
-// Generator kode Javascript untuk menghubungkan ke engine visual
+// Generator kode Javascript
 Blockly.JavaScript['fold_paper'] = function(block) {
-    const angleValue = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_ATOMIC) || 0;
-    return `updateFold(${angleValue});\n`;
+    var value_angle = Blockly.JavaScript.valueToCode(block, 'ANGLE', Blockly.JavaScript.ORDER_ATOMIC) || '0';
+    // Menghasilkan string kode yang memanggil fungsi di origami-engine.js
+    return 'updateFold(' + value_angle + ');\n';
 };
