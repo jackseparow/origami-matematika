@@ -1,4 +1,4 @@
-// Inisialisasi Workspace
+// Inisialisasi Workspace Blockly
 const workspace = Blockly.inject('blocklyDiv', {
     toolbox: document.getElementById('toolbox'),
     scrollbars: true,
@@ -6,24 +6,23 @@ const workspace = Blockly.inject('blocklyDiv', {
     move: { scrollbars: true, drag: true, wheel: true }
 });
 
-// Fungsi untuk menjalankan koding visual
+// Fungsi Eksekusi
 window.runCode = function() {
-    // Menggunakan javascriptGenerator untuk memproses blok menjadi teks kode
+    // Generate kode JavaScript dari blok di workspace
     const code = javascript.javascriptGenerator.workspaceToCode(workspace);
     
-    // Log ke console untuk memastikan kode berhasil dibuat
-    console.log("Instruksi dihasilkan:", code);
+    console.log("Menjalankan instruksi:", code);
     
     try {
-        // Menjalankan instruksi (evaluasi)
+        // Eksekusi kode yang dihasilkan generator
         eval(code);
     } catch (e) {
-        alert("Ups! Ada yang salah dengan susunan blokmu.");
-        console.error("Kesalahan eksekusi:", e);
+        alert("Ups! Susunan blok belum lengkap.");
+        console.error(e);
     }
 };
 
-// Menyesuaikan ukuran jika layar berubah
+// Pastikan workspace Blockly menyesuaikan ukuran saat browser di-resize
 window.addEventListener('resize', () => {
     Blockly.svgResize(workspace);
 });
